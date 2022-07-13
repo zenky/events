@@ -9,3 +9,5 @@ export const useOrderShouldBeReloaded = () => useEvent(getEmitter(), ZenkyEvent.
 export const useOrderPromotionRewardsShouldBeReloaded = () => useEvent(getEmitter(), ZenkyEvent.OrderPromotionRewardsShouldBeReloaded);
 export const useDisplayOrderPromotionRewardSelection = () => useEvent(getEmitter(), ZenkyEvent.DisplayOrderPromotionRewardSelection);
 export const useOrderPromotionsNotFound = () => useEvent(getEmitter(), ZenkyEvent.OrderPromotionsNotFound);
+export const usePromotionsCheckerStarted = () => useEvent(getEmitter(), ZenkyEvent.PromotionsCheckerStarted);
+export const usePromotionsCheckerCompleted = () => useEvent(getEmitter(), ZenkyEvent.PromotionsCheckerCompleted);
