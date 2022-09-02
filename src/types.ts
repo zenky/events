@@ -4,6 +4,7 @@ export enum ZenkyEvent {
   CustomerLoggedOut = 'customer.logout',
   OrderCreated = 'order.created',
   OrderLoaded = 'order.loaded',
+  OrderInitializationFailed = 'order.initialization.failed',
   OrderSubmitted = 'order.submitted',
   OrderPriceRecalculated = 'order.price.recalculated',
   OrderShouldBeReloaded = 'order.should_be_reloaded',
@@ -12,6 +13,8 @@ export enum ZenkyEvent {
   OrderPromotionsNotFound = 'order.promotions.not_found',
   ProductQuantityIncreased = 'product.quantity.increased',
   ProductQuantityDecreased = 'product.quantity.decreased',
+  ProductQuantityIncreaseFailed = 'product.quantity.failed.increase',
+  ProductQuantityDecreaseFailed = 'product.quantity.failed.decrease',
   PromotionsCheckerStarted = 'order.promotions.checker.started',
   PromotionsCheckerCompleted = 'order.promotions.checker.completed',
 }
