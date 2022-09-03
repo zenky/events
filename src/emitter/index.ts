@@ -1,5 +1,4 @@
 import mitt, { Handler } from 'mitt';
-import { ZenkyEvent } from '../types.js';
 
 export interface ZenkyEventEmitter {
   on(event: string, handlerId: string, handler: Function): void;
@@ -14,11 +13,11 @@ export interface ZenkyEventDispatcher {
 }
 
 const getWrapper = (handlersProvider: Function): ZenkyEventEmitter => {
-  const emitter = mitt<Record<ZenkyEvent, any>>();
+  const emitter = mitt<Record<string, any>>();
   const handlers = handlersProvider();
 
   return {
-    on(event: ZenkyEvent, handlerId: string, handler: Handler<any>) {
+    on(event: string, handlerId: string, handler: Handler<any>) {
       handlers[event] = handlers[event] || [];
 
       if (handlers[event].indexOf(handlerId) === -1) {
@@ -27,7 +26,7 @@ const getWrapper = (handlersProvider: Function): ZenkyEventEmitter => {
       }
     },
 
-    off(event: ZenkyEvent, handlerId: string, handler: Handler<any>) {
+    off(event: string, handlerId: string, handler: Handler<any>) {
       handlers[event] = handlers[event] || [];
       const index = handlers[event].indexOf(handlerId);
 
@@ -38,7 +37,7 @@ const getWrapper = (handlersProvider: Function): ZenkyEventEmitter => {
       emitter.off(event, handler);
     },
 
-    once(event: ZenkyEvent, handlerId: string, realHandler: Function) {
+    once(event: string, handlerId: string, realHandler: Function) {
       const handler = (...args: any[]) => {
         this.off(event, handlerId, handler);
         realHandler(...args);
@@ -47,7 +46,7 @@ const getWrapper = (handlersProvider: Function): ZenkyEventEmitter => {
       this.on(event, handlerId, handler);
     },
 
-    emit(event: ZenkyEvent, data: any = undefined) {
+    emit(event: string, data: any = undefined) {
       emitter.emit(event, data);
     },
   };
@@ -68,7 +67,7 @@ export const getEmitter = (): ZenkyEventEmitter => {
   return (<any> window).__zenkyEvents.wrapper;
 };
 
-export const useEvent = (emitter: ZenkyEventEmitter, event: ZenkyEvent): ZenkyEventDispatcher => ({
+export const useEvent = (emitter: ZenkyEventEmitter, event: string): ZenkyEventDispatcher => ({
   subscribe: (id: string, handler: Function) => emitter.on(event, id, handler),
   publish: (data?: any) => emitter.emit(event, data),
 });
